@@ -8,8 +8,9 @@ interface TypeProps {
     status?: object,
     deadline?: object,
     progress?: object,
-    // name?:object
-    // position?:object,
+    name?: any,
+    position?: any,
+    assigned?: any
 }
 
 interface TypeState {
@@ -32,7 +33,6 @@ export class ProjectContainer extends Component <TypeProps, TypeState> {
                 this.setState({
                     allProject: data
                 });
-                console.log(data)
             })
             .catch((error: any) => {
                 console.error(error);
@@ -49,8 +49,7 @@ export class ProjectContainer extends Component <TypeProps, TypeState> {
                 status={project.status}
                 deadline={project.deadline}
                 progresss={project.progress}
-                // name={Object.values(project.assigned.name)}
-                // position={Object.values(project.assigned.position)}
+                assigned={project.assigned}
             />);
         return (
             <>{project}</>

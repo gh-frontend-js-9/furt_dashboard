@@ -38,13 +38,17 @@ const ProjectComponent = (props: any) => {
                         </i>
                     </div>
                     <div>
-                        <p>{props.name}</p>
-                        <p className={'project-container__subparagraph'}>{props.position}</p>
+                        {props.assigned ? props.assigned.name : "Djon"
+                        }
+                        <p className={'project-container__subparagraph'}>
+                            {props.assigned ? props.assigned.position : "Frontend Developer"
+                            }
+                        </p>
                     </div>
                 </div>
             </td>
         </table>
     );
-}
+};
 
 export default ProjectComponent
