@@ -1,6 +1,7 @@
 import React from "react";
 import './project/App.css';
-//import CreateProjectContainer from './project/CreateProjectContainer'
+import {ModalWindow} from "./ModalWindow";
+
 export const Header: React.FC = () => {
     return (
         <header className={'header'}>
@@ -8,10 +9,8 @@ export const Header: React.FC = () => {
             </div>
 
             <div>
-                <button className={'button button--hovered'}>
-                    Add +
-                    {/*<CreateProjectContainer />*/}
-                </button>
+                <ModalWindow/>
+                {/*<CreateProjectContainer />*/}
             </div>
         </header>
     );
