@@ -14,7 +14,7 @@ const ProjectComponent = (props: any) => {
                 {props.cost}
             </div>
             <div className='project-container__item'>
-                {props.deadline.slice(0, 10)}
+                {props.deadline.slice(2, 10)}
             </div>
             <div className='project-container__item'>
                 {props.progresss} %
@@ -38,11 +38,9 @@ const ProjectComponent = (props: any) => {
                         </i>
                     </div>
                     <div>
-                        {props.assigned ? props.assigned.name : "Djon"
-                        }
+                        {props.assigned ? props.assigned.name : "Djon"}
                         <p className={'project-container__subparagraph'}>
-                            {props.assigned ? props.assigned.position : "Frontend Developer"
-                            }
+                            {props.assigned ? props.assigned.position : "Frontend Developer"}
                         </p>
                     </div>
                 </div>
