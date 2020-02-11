@@ -10,7 +10,6 @@ export const Header: React.FC = () => {
 
             <div>
                 <ModalWindow/>
-                {/*<CreateProjectContainer />*/}
             </div>
         </header>
     );

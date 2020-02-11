@@ -1,37 +1,60 @@
 import React, {Component} from "react"
-import CreateProjectComponent from './CreateProjectComponent'
 
 interface TypeProps {
     title?: object,
     company?: object,
-    cost?: object,
-    status?: object,
-    deadline?: object,
-    progress?: object,
+    cost?: any,
+    deadline?: any,
+    assigned?: any,
 }
 
 interface TypeState {
-    createProject?: any
+    createProject?: any,
+    title?: any,
+    company?: any,
+    cost?: any,
+    deadline?: any,
+    assigned?: any,
 }
 
-class CreateProjectContainer extends Component <TypeProps, TypeState> {
+export default class CreateProjectContainer extends Component <TypeProps, TypeState> {
     constructor(props: any) {
         super(props);
         this.state = {
             createProject: [],
-        }
+            title: '',
+            company: '',
+            cost: '',
+            deadline: '',
+            assigned: ''
+
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
+    handleChange(event: {
+        target: {
+            name: any;
+            value: any;
+        };
+    }) {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    createNewProject() {
         let url = 'https://geekhub-frontend-js-9.herokuapp.com/api/projects/';
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-                title: "Mobile app ",
-                company: "Google",
-                cost: "$3000",
-                deadline: "2020-03-30",
-                assigned: "5e1ee5f58067c30022524e22"
+                title: this.state.title,
+                company:this.state.company,
+                cost:this.state.cost,
+                deadline:this.state.deadline,
+                assigned: this.state.assigned,
             }),
             headers: {
                 'content-type': 'application/json',
@@ -49,21 +72,90 @@ class CreateProjectContainer extends Component <TypeProps, TypeState> {
                 console.error(error);
             });
     }
+    handleSubmit(event: {
+        preventDefault: () => void;
+    }) {
+        event.preventDefault();
+        this.createNewProject();
 
+    }
     render() {
-        const project = this.state.createProject.map((project: any) =>
-            <CreateProjectComponent
-                key={project.assigned}
-                title={project.title}
-                company={project.company}
-                cost={project.cost}
-                deadline={project.deadline}
-                assigned={Object.values(project.assigned)}
-            />);
         return (
-            <>{project}</>
+            <div className={'modal__form-block'}>
+            <form className={'form'} key={this.state.assigned} onSubmit={this.handleSubmit}>
+                <label className='form__item'>
+                    <span className='form__title'>
+                        Title
+                    </span>
+                    <input
+                        required
+                        type="text"
+                        name = 'title'
+                        value={this.state.title}
+                        placeholder="Title"
+                        onChange={this.handleChange} />
+                </label>
+
+                <label className='form__item'>
+                    <span className='form__title'>
+                        Company
+                    </span>
+                    <input
+                        required
+                        type="text"
+                        name = 'company'
+                        value={this.state.company}
+                        placeholder=" Company"
+                        onChange={this.handleChange} />
+                </label>
+
+                <label className='form__item'>
+                    <span className='form__title'>
+                        Cost
+                    </span>
+                    <input
+                        required
+                        type="text"
+                        name = 'cost'
+                        value={this.state.cost}
+                        placeholder="Cost"
+                        onChange={this.handleChange} />
+                </label>
+
+                <label className='form__item'>
+                    <span className='form__title'>
+                        Deadline
+                    </span>
+                    <input
+                        required
+                        type="text"
+                        name = 'deadline'
+                        value={this.state.deadline}
+                        placeholder="Deadline"
+                        onChange={this.handleChange} />
+                </label>
+
+                <label className='form__item'>
+                    <span className='form__title'>
+                        Assigned
+                    </span>
+                    <input
+                        required
+                        type="text"
+                        name = 'assigned'
+                        value={this.state.assigned}
+                        placeholder="Assigned"
+                        onChange={this.handleChange} />
+                </label>
+
+                <button
+                    className='button form__button button--hovered'
+                    type='submit'>
+                    Submit
+                </button>
+            </form>
+            </div>
         )
     }
 }
 
-export default CreateProjectContainer

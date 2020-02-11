@@ -17,7 +17,7 @@ interface TypeState {
     allProject?: any
 }
 
-export class ProjectContainer extends Component <TypeProps, TypeState> {
+export default class ProjectContainer extends Component <TypeProps, TypeState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -56,3 +56,4 @@ export class ProjectContainer extends Component <TypeProps, TypeState> {
         )
     }
 }
+
