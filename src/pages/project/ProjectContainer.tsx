@@ -1,23 +1,24 @@
 import React, {Component} from "react"
+import axios from 'axios';
 import ProjectComponent from './ProjectComponent'
 
-interface TypeProps {
+axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
+
+interface IProps {
     title?: object,
     company?: object,
     cost?: object,
     status?: object,
     deadline?: object,
     progress?: object,
-    name?: any,
-    position?: any,
-    assigned?: any
+    name?: object,
+    position?: object,
+    assigned?: object,
 }
-
-interface TypeState {
-    allProject?: any
+interface IState {
+    allProject?: any,
 }
-
-export default class ProjectContainer extends Component <TypeProps, TypeState> {
+export default class ProjectContainer extends Component <IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -26,21 +27,20 @@ export default class ProjectContainer extends Component <TypeProps, TypeState> {
     }
 
     componentDidMount() {
-        let url = 'https://geekhub-frontend-js-9.herokuapp.com/api/projects/';
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    allProject: data
+            axios.get(`${axios.defaults.baseURL}/api/projects/`)
+                .then(response => response.data)
+                .then(data => {
+                    this.setState({
+                        allProject: data
+                    });
+                })
+                .catch((error: string) => {
+                    console.error(error);
                 });
-            })
-            .catch((error: any) => {
-                console.error(error);
-            });
     }
 
     render() {
-        const project = this.state.allProject.map((project: any) =>
+        const project = this.state.allProject.map((project:any) =>
             <ProjectComponent
                 key={project._id}
                 title={project.title}
