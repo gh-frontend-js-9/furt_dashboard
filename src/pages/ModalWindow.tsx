@@ -3,15 +3,15 @@ import Modal, { ICustomModalStyle } from '@bdenzer/react-modal';
 import CreateProjectContainer from '../pages/project/CreateProjectContainer'
 
 interface IAppState {
-    shouldShowModal: boolean;
+    isOpen: boolean;
 }
 
 export class ModalWindow extends React.Component<{}, IAppState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            shouldShowModal: false
-        }
+            isOpen: false
+        };
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
     }
@@ -20,7 +20,7 @@ export class ModalWindow extends React.Component<{}, IAppState> {
         const modalStyle: ICustomModalStyle = {
             animationTime: 400,
             closeButtonText: {
-                color: 'white'
+                color: '#ffffff'
             },
             hoveredButtonText: {
                 fontWeight: 'bold'
@@ -29,7 +29,7 @@ export class ModalWindow extends React.Component<{}, IAppState> {
                 backgroundColor: '#268ef8'
             },
             modalTitle: {
-                color: 'white',
+                color: '#ffffff',
                 fontFamily: 'Montserrat'
             },
             modalBody:{
@@ -44,7 +44,7 @@ export class ModalWindow extends React.Component<{}, IAppState> {
                 <Modal
                     closeModal={this.closeModal}
                     customStyle={modalStyle}
-                    shouldShowModal={this.state.shouldShowModal}
+                    shouldShowModal={this.state.isOpen}
                     title="Create project"
                 >
                     <CreateProjectContainer/>
@@ -55,10 +55,10 @@ export class ModalWindow extends React.Component<{}, IAppState> {
     }
 
     private closeModal(): void {
-        this.setState({ shouldShowModal: false });
+        this.setState({ isOpen: false });
     }
 
     private openModal(): void {
-        this.setState({ shouldShowModal: true });
+        this.setState({ isOpen: true });
     }
 }

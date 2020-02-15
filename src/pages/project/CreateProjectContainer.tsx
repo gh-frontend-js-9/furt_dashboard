@@ -4,14 +4,15 @@ import axios from 'axios';
 axios.defaults.headers.common['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTE5YzIyM2E0MTk5YzAwMjI3NTI2OGEiLCJpYXQiOjE1Nzk2ODc4OTl9.M5q83O_nP6B8SbfNKOs3CaQTu4JaQcbr_MgDLSgqnTU';
 axios.defaults.headers.post['content-Type'] = 'application/json';
 
-interface Project {
-    createProject?:object,
+interface IState {
+    createProject?: object,
     title?: string,
     company?: string,
     cost?: string,
     deadline?: string,
     assigned?: string,
 }
+
 interface IProps {
     title?: object,
     company?: object,
@@ -20,20 +21,11 @@ interface IProps {
     assigned?: object,
 }
 
-// interface IState {
-//     project: Project
-// }
-
-export default class CreateProjectContainer extends Component <IProps, Project> {
+export default class CreateProjectContainer extends Component <IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
             createProject: [],
-            title: '',
-            company: '',
-            cost: '',
-            deadline: '',
-            assigned: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,16 +45,16 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
 
     createNewProject() {
         axios.post(`${axios.defaults.baseURL}/api/projects/`, {
-                title: this.state.title,
-                company: this.state.company,
-                cost: this.state.cost,
-                deadline: this.state.deadline,
-                assigned: this.state.assigned,
+            title: this.state.title,
+            company: this.state.company,
+            cost: this.state.cost,
+            deadline: this.state.deadline,
+            assigned: this.state.assigned,
         })
             .then(response => response.data)
             .then((data: object) => {
                 this.setState({
-                    createProject: data
+                    createProject: data,
                 });
             })
             .catch((error: string) => {
@@ -80,9 +72,10 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
     render() {
         return (
             <div className={'modal__form-block'}>
-                <form className={'form'} key={this.state.assigned} onSubmit={this.handleSubmit}>
-                    <label className='form__item'>
-                    <span className='form__title'>
+                <form className={'createProjectForm'} key={this.state.assigned}
+                      onSubmit={this.handleSubmit}>
+                    <label className='createProjectForm__item'>
+                    <span className='createProjectForm__title'>
                         Title
                     </span>
                         <input
@@ -94,8 +87,8 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
                             onChange={this.handleChange}/>
                     </label>
 
-                    <label className='form__item'>
-                    <span className='form__title'>
+                    <label className='createProjectForm__item'>
+                    <span className='createProjectForm__title'>
                         Company
                     </span>
                         <input
@@ -107,8 +100,8 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
                             onChange={this.handleChange}/>
                     </label>
 
-                    <label className='form__item'>
-                    <span className='form__title'>
+                    <label className='createProjectForm__item'>
+                    <span className='createProjectForm__title'>
                         Cost
                     </span>
                         <input
@@ -120,8 +113,8 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
                             onChange={this.handleChange}/>
                     </label>
 
-                    <label className='form__item'>
-                    <span className='form__title'>
+                    <label className='createProjectForm__item'>
+                    <span className='createProjectForm__title'>
                         Deadline
                     </span>
                         <input
@@ -133,8 +126,8 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
                             onChange={this.handleChange}/>
                     </label>
 
-                    <label className='form__item'>
-                    <span className='form__title'>
+                    <label className='createProjectForm__item'>
+                    <span className='createProjectForm__title'>
                         Assigned
                     </span>
                         <input
@@ -147,13 +140,14 @@ export default class CreateProjectContainer extends Component <IProps, Project> 
                     </label>
 
                     <button
-                        className='button form__button button--hovered'
+                        className='button createProjectForm__button button--hovered'
                         type='submit'>
-                        Submit
+                        OK
                     </button>
                 </form>
             </div>
         )
     }
 }
+
 

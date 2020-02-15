@@ -2,6 +2,15 @@ import React from "react"
 import {Line} from "rc-progress";
 
 const ProjectComponent = (props: any) => {
+    function getProgressColor() {
+        if (props.progresss === 0) {
+            return "#D3D3D3"
+        } else if (props.progresss === 100) {
+            return "#4caf50"
+        } else if (props.progresss < 0 && props.progresss < 100) {
+            return "#2196f3"
+        }
+    }
     return (
         <div className='project-container' key={props._id}>
             <div className='project-container__item'>
@@ -17,16 +26,8 @@ const ProjectComponent = (props: any) => {
                 {props.deadline.slice(2, 10)}
             </div>
             <div className='project-container__item'>
-                {props.progresss} %
-                {props.progresss === 0 &&
-                <Line percent={props.progresss} trailColor='#D3D3D3' strokeColor="#D3D3D3"/>
-                }
-                {props.progresss === 100 &&
-                <Line percent={props.progresss} strokeColor="#4caf50"/>
-                }
-                {props.progresss > 0 && props.progresss < 100 &&
-                <Line percent={props.progresss} strokeColor="#2196f3"/>
-                }
+                {props.progress} %
+                <Line percent={props.progress} strokeColor={getProgressColor()}/>
             </div>
             <div className='project-container__item'>
                 {props.status}
@@ -35,7 +36,7 @@ const ProjectComponent = (props: any) => {
                 <div className={'project-container__assigned'}>
                     <div>
                         <i className='fa fa-user-secret fa-assigned fa-2x'>
-                        </i>
+                         </i>
                     </div>
                     <div>
                         {props.assigned ? props.assigned.name : "Djon"}
@@ -47,6 +48,6 @@ const ProjectComponent = (props: any) => {
             </div>
         </div>
     );
-}
+};
 
 export default ProjectComponent

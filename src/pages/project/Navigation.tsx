@@ -1,14 +1,14 @@
 import React from "react";
 
-export  const Title:React.FC = () =>{
+export  const Navigation:React.FC = () =>{
     return (
         <div className='title'>
             <p className='title__item'>
                 Project title
             </p>
-            <td className='title__item'>
+            <p className='title__item'>
                 Value
-            </td>
+            </p>
             <p className='title__item'>
                 Deadline
             </p>
