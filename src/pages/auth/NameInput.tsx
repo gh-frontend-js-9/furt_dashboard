@@ -10,4 +10,4 @@ export const NameInput = (props: any) => {
                value={props.name}
                onChange={props.handleChange}/>
     )
-}
+};

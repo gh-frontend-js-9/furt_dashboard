@@ -1,9 +1,9 @@
 import React, {Component} from "react"
 import axios from 'axios';
-
 import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
+import {ConfirmationPasswordInput} from './ConfirmationPasswordInput'
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
@@ -13,14 +13,16 @@ interface IState {
     userData?: any,
     email?: string,
     password?: string,
+    confirmationPassword?: string
 }
 
 interface IProps {
     email?: string,
     password?: string,
+    confirmationPassword?: string
 }
 
-export default class LoginContainer extends Component <IProps, IState> {
+export default class ResetPassword extends Component <IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -42,15 +44,17 @@ export default class LoginContainer extends Component <IProps, IState> {
         })
     }
 
-    loginPostRequest() {
+    resetPassPostRequest() {
         axios({
             method: 'post',
-            url: `${axios.defaults.baseURL}/api/users/login`,
+            url: `${axios.defaults.baseURL}/ reset_password`,
             data: {
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+                confirmationPassword: this.state.confirmationPassword
             },
             headers: {
+                'x-access-token': 'null',
                 'Content-Type': 'application/json'
             }
         })
@@ -70,14 +74,14 @@ export default class LoginContainer extends Component <IProps, IState> {
         preventDefault: () => void;
     }) {
         event.preventDefault();
-        this.loginPostRequest();
+        this.resetPassPostRequest();
     }
 
     render() {
         return (
             <div className="auth-container">
                 <h2 className="auth-container__title">
-                    Log in
+                    Reset Password
                 </h2>
                 <form key={this.state.userData._id}
                       className='form'
@@ -91,8 +95,12 @@ export default class LoginContainer extends Component <IProps, IState> {
                         name='password'
                         value={this.state.password}
                         handleChange={this.handleChange}/>
+                    <ConfirmationPasswordInput
+                        name='confirmationPassword'
+                        value={this.state.confirmationPassword}
+                        handleChange={this.handleChange}/>
                     <Button type='submit'>
-                        Log in
+                        OK
                     </Button>
                 </form>
             </div>
