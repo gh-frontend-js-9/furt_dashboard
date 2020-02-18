@@ -4,7 +4,7 @@ export const EmailInput = (props: any) => {
     return (
         <input key={props._id}
                className="input"
-               type="text"
+               type="email"
                name='email'
                placeholder="Email"
                value={props.email}

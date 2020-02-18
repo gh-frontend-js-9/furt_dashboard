@@ -5,6 +5,7 @@ import {NameInput} from './NameInput'
 import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
+import {NavLink} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
@@ -80,6 +81,9 @@ export default class SignUpContainer extends Component <IProps, IState> {
                 <h2 className="auth-container__title">
                     Sign Up
                 </h2>
+                <NavLink className='auth-navigation' to='/login'>
+                    Log in
+                </NavLink>
                 <form key={this.state.userData._id}
                       className='form'
                       name="form"

@@ -4,6 +4,7 @@ import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
 import {ConfirmationPasswordInput} from './ConfirmationPasswordInput'
+import {NavLink} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
@@ -47,7 +48,7 @@ export default class ResetPassword extends Component <IProps, IState> {
     resetPassPostRequest() {
         axios({
             method: 'post',
-            url: `${axios.defaults.baseURL}/ reset_password`,
+            url: `${axios.defaults.baseURL}/api/users/reset_password`,
             data: {
                 email: this.state.email,
                 password: this.state.password,
@@ -83,6 +84,9 @@ export default class ResetPassword extends Component <IProps, IState> {
                 <h2 className="auth-container__title">
                     Reset Password
                 </h2>
+                <NavLink className='auth-navigation' to='/login'>
+                    Log in
+                </NavLink>
                 <form key={this.state.userData._id}
                       className='form'
                       name="form"

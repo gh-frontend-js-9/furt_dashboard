@@ -4,11 +4,11 @@ import axios from 'axios';
 import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
+import {NavLink} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
 //axios.defaults.headers.common['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTE5YzIyM2E0MTk5YzAwMjI3NTI2OGEiLCJpYXQiOjE1Nzk2ODc4OTl9.M5q83O_nP6B8SbfNKOs3CaQTu4JaQcbr_MgDLSgqnTU';
-
 interface IState {
     userData?: any,
     email?: string,
@@ -21,6 +21,7 @@ interface IProps {
 }
 
 export default class LoginContainer extends Component <IProps, IState> {
+    history: any;
     constructor(props: any) {
         super(props);
         this.state = {
@@ -28,6 +29,7 @@ export default class LoginContainer extends Component <IProps, IState> {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event: {
@@ -65,7 +67,6 @@ export default class LoginContainer extends Component <IProps, IState> {
                 console.error(error);
             });
     }
-
     handleSubmit(event: {
         preventDefault: () => void;
     }) {
@@ -79,6 +80,9 @@ export default class LoginContainer extends Component <IProps, IState> {
                 <h2 className="auth-container__title">
                     Log in
                 </h2>
+                <NavLink className='auth-navigation' to='/'>
+                    Not a member?
+                </NavLink>
                 <form key={this.state.userData._id}
                       className='form'
                       name="form"
@@ -95,6 +99,9 @@ export default class LoginContainer extends Component <IProps, IState> {
                         Log in
                     </Button>
                 </form>
+                <NavLink className='auth-navigation' to='reset_password'>
+                    Forgot password?
+                </NavLink>
             </div>
         )
     }
