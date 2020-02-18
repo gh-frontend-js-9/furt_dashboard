@@ -3,8 +3,6 @@ import axios from 'axios';
 import ProjectComponent from './ProjectComponent'
 import Loading from './Loading'
 
-axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
-
 interface IProps {
     title?: object,
     company?: object,

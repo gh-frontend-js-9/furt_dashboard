@@ -1,8 +1,7 @@
 import React, {Component} from "react"
 import axios from 'axios';
 
-axios.defaults.headers.common['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTE5YzIyM2E0MTk5YzAwMjI3NTI2OGEiLCJpYXQiOjE1Nzk2ODc4OTl9.M5q83O_nP6B8SbfNKOs3CaQTu4JaQcbr_MgDLSgqnTU';
-axios.defaults.headers.post['content-Type'] = 'application/json';
+//axios.defaults.headers.post['content-Type'] = 'application/json';
 
 interface IState {
     createProject?: object,
@@ -12,9 +11,8 @@ interface IState {
     deadline?: string,
     assigned?: string,
 }
-
 interface IProps {
-    title?: object,
+    title?: string,
     company?: object,
     cost?: object,
     deadline?: object,
@@ -26,6 +24,11 @@ export default class CreateProjectContainer extends Component <IProps, IState> {
         super(props);
         this.state = {
             createProject: [],
+            title: '',
+            company: '',
+            cost: '',
+            deadline: '',
+            assigned: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
