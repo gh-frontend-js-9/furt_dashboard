@@ -17,9 +17,9 @@ export const Navigation: React.FC = () => {
 
     });
     return (
-            <div className='navigation-list'>
-                {renderNavigationListItem}
-            </div>
+        <div className='navigation-list'>
+            {renderNavigationListItem}
+        </div>
     );
 };
 

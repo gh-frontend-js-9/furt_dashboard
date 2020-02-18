@@ -63,7 +63,6 @@ export default class SignUpContainer extends Component <IProps, IState> {
                 this.setState({
                     userData: data,
                 });
-                console.log(data)
             })
             .catch((error: string) => {
                 console.error(error);

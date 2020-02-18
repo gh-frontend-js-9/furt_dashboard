@@ -11,18 +11,21 @@
     justify-content: space-between;
     padding: 15px;
 }
-.header__nav-bar{
+
+.header__nav-bar {
     display: flex;
     align-items: center;
 
 }
-.nav-bar__item{
+
+.nav-bar__item {
     padding: 7px 15px;
 }
+
 .button {
     padding: 9px 30px;
     font-size: 16px;
-    color:  #ffffff;
+    color: #ffffff;
     border: 1px solid #2196f3;
     border-radius: 30px;
     background-color: #3a3e52;
@@ -32,31 +35,36 @@
     background-color: #2196f3;
     cursor: pointer;
 }
-.fa{
-    color:  #ffffff;
+
+.fa {
+    color: #ffffff;
 }
-.fa--hovered:hover{
+
+.fa--hovered:hover {
     color: #2196f3;
 }
 
 /*sidebar*/
-.sidebar{
+.sidebar {
     display: flex;
     flex-direction: column;
 }
-.sidebar__item{
+
+.sidebar__item {
     padding: 40px 20px;
 }
 
 /*main*/
-.main{
+.main {
     display: flex;
 }
-.main__container{
+
+.main__container {
     width: 100%;
 }
-   /*_sort*/
-.sort-row{
+
+/*_sort*/
+.sort-row {
     display: flex;
     justify-content: space-between;
     padding: 20px;
@@ -64,17 +72,20 @@
     color: #ffffff;
     font-family: Montserrat, sans-serif;
 }
-.sort-row__item{
+
+.sort-row__item {
     padding: 15px;
     text-decoration: none;
     color: #ffffff;
     font-family: Montserrat, sans-serif;
 }
-.sort-row__item--hovered:hover{
+
+.sort-row__item--hovered:hover {
     color: #2b2d3c;
 }
-.select{
-    background-color:#2196f3;
+
+.select {
+    background-color: #2196f3;
     color: #ffffff;
     border: 1px solid #ffffff;
     border-radius: 25px;
@@ -132,21 +143,24 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .fa-assigned {
     padding: 15px;
 }
 
 /*modal*/
-.modal__form-block{
+.modal__form-block {
     display: flex;
     justify-content: center;
 }
-.createProjectForm{
+
+.createProjectForm {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
-.createProjectForm__item{
+
+.createProjectForm__item {
     color: #ffffff;
     font-family: Montserrat, sans-serif;
     font-size: 16px;
@@ -156,46 +170,53 @@
     align-items: center;
     justify-content: flex-start;
 }
-.createProjectForm__title{
+
+.createProjectForm__title {
     padding: 10px;
 }
-.createProjectForm__button{
+
+.createProjectForm__button {
     padding: 3px 20px;
     margin: 10px;
 }
 
-.loading{
+.loading {
     font-family: Montserrat, sans-serif;
     font-size: 16px;
     color: #ffffff;
     padding: 20px;
     text-align: center;
 }
-.auth-container{
+
+.auth-container {
     display: flex;
     height: 100vh;
     flex-direction: column;
     justify-content: center;
 }
-.auth-container__title{
+
+.auth-container__title {
     font-family: Montserrat, sans-serif;
     font-size: 50px;
     color: #ffffff;
     text-align: center;
     padding: 35px;
 }
-.form{
+
+.form {
     display: flex;
     align-items: center;
     flex-direction: column;
     padding: 30px;
 }
-.input{
+
+.input {
     margin-bottom: 20px;
     padding: 4px;
     border: 0px;
 }
-.auth-navigation{
+
+.auth-navigation {
     font-family: Montserrat, sans-serif;
     font-size: 15px;
     color: #ffffff;

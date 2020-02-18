@@ -11,6 +11,7 @@ const ProjectComponent = (props: any) => {
             return "#2196f3"
         }
     }
+
     return (
         <div className='project-container' key={props._id}>
             <div className='project-container__item'>
@@ -36,7 +37,7 @@ const ProjectComponent = (props: any) => {
                 <div className={'project-container__assigned'}>
                     <div>
                         <i className='fa fa-user-secret fa-assigned fa-2x'>
-                         </i>
+                        </i>
                     </div>
                     <div>
                         {props.assigned ? props.assigned.name : "Djon"}

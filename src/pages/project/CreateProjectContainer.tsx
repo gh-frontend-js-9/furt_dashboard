@@ -1,7 +1,6 @@
 import React, {Component} from "react"
 import axios from 'axios';
 
-//axios.defaults.headers.post['content-Type'] = 'application/json';
 
 interface IState {
     createProject?: object,
@@ -11,6 +10,7 @@ interface IState {
     deadline?: string,
     assigned?: string,
 }
+
 interface IProps {
     title?: string,
     company?: object,
@@ -47,12 +47,20 @@ export default class CreateProjectContainer extends Component <IProps, IState> {
     }
 
     createNewProject() {
-        axios.post(`${axios.defaults.baseURL}/api/projects/`, {
-            title: this.state.title,
-            company: this.state.company,
-            cost: this.state.cost,
-            deadline: this.state.deadline,
-            assigned: this.state.assigned,
+        axios({
+            method: 'post',
+            url: `${axios.defaults.baseURL}/api/projects/`,
+            data: {
+                title: this.state.title,
+                company: this.state.company,
+                cost: this.state.cost,
+                deadline: this.state.deadline,
+                assigned: this.state.assigned,
+            },
+            headers: {
+                'x-access-token': 'null',
+                'Content-Type': 'application/json'
+            }
         })
             .then(response => response.data)
             .then((data: object) => {

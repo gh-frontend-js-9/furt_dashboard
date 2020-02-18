@@ -8,11 +8,31 @@ import {NavLink} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
-//axios.defaults.headers.common['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTE5YzIyM2E0MTk5YzAwMjI3NTI2OGEiLCJpYXQiOjE1Nzk2ODc4OTl9.M5q83O_nP6B8SbfNKOs3CaQTu4JaQcbr_MgDLSgqnTU';
+function sendRequestForCurrent() {
+    localStorage.getItem('token');
+    if (localStorage.getItem('token')) {
+        fetch('https://geekhub-frontend-js-9.herokuapp.com/api/users/', {
+            method: 'GET',
+            headers: {
+                'x-access-token': localStorage.token,
+            }
+        }).then((response) => {
+            console.log(response);
+            return response.json();
+        }).catch((error) =>{
+            console.log('error')
+        });
+        console.log(localStorage.token)
+    }
+}
+sendRequestForCurrent();
+
 interface IState {
     userData?: any,
     email?: string,
     password?: string,
+    replace?: boolean
+    isAuth?: boolean
 }
 
 interface IProps {
@@ -21,15 +41,14 @@ interface IProps {
 }
 
 export default class LoginContainer extends Component <IProps, IState> {
-    history: any;
     constructor(props: any) {
         super(props);
         this.state = {
             userData: [],
+            isAuth: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleChange(event: {
@@ -56,17 +75,23 @@ export default class LoginContainer extends Component <IProps, IState> {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.data)
-            .then((data: object) => {
-                this.setState({
-                    userData: data,
-                });
-                console.log(data)
+            .then(response => response)
+            .then((data) => {
+                if (data.status === 200) {
+                    let token = data.headers['x-auth-token'];
+                    localStorage.setItem('token', token);
+                    this.setState({
+                        userData: data,
+                    });
+                    window.location.href = `/api/projects/`
+                    //window.location.href = `/api/projects/`
+                }
             })
             .catch((error: string) => {
                 console.error(error);
             });
     }
+
     handleSubmit(event: {
         preventDefault: () => void;
     }) {

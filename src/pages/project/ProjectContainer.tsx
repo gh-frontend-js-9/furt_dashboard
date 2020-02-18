@@ -30,7 +30,14 @@ export default class ProjectContainer extends Component <IProps, IState> {
     }
 
     componentDidMount() {
-        axios.get(`${axios.defaults.baseURL}/api/projects/`)
+        localStorage.getItem('token');
+        axios({
+            method: 'get',
+            url: `${axios.defaults.baseURL}/api/projects/`,
+            headers: {
+                'x-access-token': localStorage.token,
+            }
+        })
             .then(response => response.data)
             .then(data => {
                 this.setState({
@@ -41,6 +48,7 @@ export default class ProjectContainer extends Component <IProps, IState> {
             .catch((error: string) => {
                 console.error(error);
             });
+        console.log(localStorage)
     }
 
     render() {
