@@ -1,19 +1,17 @@
 import * as React from 'react';
 import Modal, { ICustomModalStyle } from '@bdenzer/react-modal';
-import CreateProjectContainer from '../pages/project/CreateProjectContainer'
+import CreateNewProjectContainer from './project/CreateNewProjectContainer'
 
-interface IAppState {
+interface IState {
     isOpen: boolean;
 }
 
-export class ModalWindow extends React.Component<{}, IAppState> {
+export class ModalWindow extends React.Component<{}, IState> {
     constructor(props: {}) {
         super(props);
         this.state = {
             isOpen: false
         };
-        this.closeModal = this.closeModal.bind(this);
-        this.openModal = this.openModal.bind(this);
     }
 
     public render(): JSX.Element {
@@ -42,14 +40,16 @@ export class ModalWindow extends React.Component<{}, IAppState> {
         return (
             <div>
                 <Modal
-                    closeModal={this.closeModal}
+                    closeModal={() => this.closeModal()}
                     customStyle={modalStyle}
                     shouldShowModal={this.state.isOpen}
                     title="Create project"
                 >
-                    <CreateProjectContainer/>
+                    <CreateNewProjectContainer/>
                 </Modal>
-                <button className={'button button--hovered'} onClick={this.openModal}>Add +</button>
+                <button className={'button button--hovered'} onClick={() =>this.openModal()}>
+                    Add +
+                </button>
             </div>
         );
     }
