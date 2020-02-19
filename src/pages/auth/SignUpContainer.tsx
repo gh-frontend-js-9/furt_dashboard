@@ -6,6 +6,7 @@ import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
 import {NavLink, Redirect} from "react-router-dom";
+import Helpers from "./Helpers";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
@@ -55,17 +56,15 @@ export default class SignUpContainer extends Component <IProps, IState> {
                 password: this.state.password,
                 name: this.state.name,
             },
-            headers: {
-                'Content-Type': 'application/json'
-            }
         })
             .then(response => response.data)
-            .then((data: object) => {
+            .then((data) => {
+                if (data.status === 200) {
                 this.setState({
                     userData: data,
                     isAuth: true,
                 });
-            })
+            }})
             .catch((error: string) => {
                 console.error(error);
             });
@@ -88,24 +87,21 @@ export default class SignUpContainer extends Component <IProps, IState> {
                     </NavLink>
                     <form key={this.state.userData._id}
                           className='form'
-                          name="form"
                           onSubmit={this.handleSubmit}>
                         <NameInput
                             value={this.state.name}
                             handleChange={this.handleChange}/>
                         <EmailInput
-                            name='email'
                             value={this.state.email}
                             handleChange={this.handleChange}/>
                         <PasswordInput
-                            name='password'
                             value={this.state.password}
                             handleChange={this.handleChange}/>
                         <Button> Sign up </Button>
                     </form>
-                </div>
 
-                {this.state.isAuth ? (<Redirect to='/login'/>) : (<>{'hi'}</>)}
+                    {this.state.isAuth ? (<Redirect to='/login'/>) : <Helpers/>}
+                </div>
             </>
         )
     }

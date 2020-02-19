@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import axios from 'axios';
-import ProjectComponent from './ProjectComponent'
+import CardCreatedProjectComponent from './CardCreatedProjectComponent'
 import Loading from './Loading'
 
 interface IProps {
@@ -52,7 +52,7 @@ export default class ProjectContainer extends Component <IProps, IState> {
 
     render() {
         const project = this.state.allProject.map((project: any) =>
-            <ProjectComponent {...project} key={project._id}/>);
+            <CardCreatedProjectComponent {...project} key={project._id}/>);
         return (
             <>
                 {this.state.loading ? <Loading/> : project}

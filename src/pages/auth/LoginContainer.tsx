@@ -5,7 +5,9 @@ import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
 import {NavLink, Redirect} from "react-router-dom";
+import Helpers from "./Helpers";
 
+axios.defaults.headers['Content-Type'] = 'application/json';
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
 interface IState {
@@ -48,7 +50,10 @@ class LoginGetRequestContainer extends Component <{}, IState> {
     }
 
     render() {
-        return (<> {this.state.isAuth ? (<Redirect to='/projects/'/>) : (<Redirect to='/login'/>)}</>)
+        return (
+            <> {this.state.isAuth ?
+                (<Redirect to='/projects/'/>) : (<Redirect to='/login'/>)}
+            </>)
     }
 }
 
@@ -71,11 +76,9 @@ export default class LoginPostRequestContainer extends Component <IProps, IState
         this.state = {
             userData: [],
             isAuth: false,
-
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleChange(event: {
@@ -98,9 +101,6 @@ export default class LoginPostRequestContainer extends Component <IProps, IState
                 email: this.state.email,
                 password: this.state.password
             },
-            headers: {
-                'Content-Type': 'application/json'
-            }
         })
             .then(response => response)
             .then((data) => {
@@ -128,30 +128,34 @@ export default class LoginPostRequestContainer extends Component <IProps, IState
 
     render() {
         return (
-            <div className="auth-container">
-                <h2 className="auth-container__title">
-                    Log in
-                </h2>
-                <NavLink className='auth-navigation' to='/'>
-                    Not a member?
-                </NavLink>
-                <form key={this.state.userData._id}
-                      className='form'
-                      name="form"
-                      onSubmit={this.handleSubmit}>
-                    <EmailInput
-                        value={this.state.email}
-                        handleChange={this.handleChange}/>
-                    <PasswordInput
-                        value={this.state.password}
-                        handleChange={this.handleChange}/>
-                    <Button> Log in </Button>
-                </form>
-                <NavLink className='auth-navigation' to='reset_password'>
-                    Forgot password?
-                </NavLink>
+            <>
+                <div className="auth-container">
+                    <h2 className="auth-container__title">
+                        Log in
+                    </h2>
+                    <NavLink className='auth-navigation' to='/'>
+                        Not a member?
+                    </NavLink>
+                    <form key={this.state.userData._id}
+                          className='form'
+                          name="form"
+                          onSubmit={this.handleSubmit}>
+                        <EmailInput
+                            value={this.state.email}
+                            handleChange={this.handleChange}/>
+                        <PasswordInput
+                            value={this.state.password}
+                            handleChange={this.handleChange}/>
+                        <Button> Log in </Button>
+                    </form>
+                    <NavLink className='auth-navigation' to='reset_password'>
+                        Forgot password?
+                    </NavLink>
+                    {this.state.isAuth ? (<Redirect to='/projects/'/>) : (<Helpers/>)}
+                </div>
+
                 <LoginGetRequestContainer/>
-            </div>
+            </>
         )
     }
 }
