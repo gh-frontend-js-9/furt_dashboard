@@ -4,35 +4,60 @@ import axios from 'axios';
 import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
-function sendRequestForCurrent() {
-    localStorage.getItem('token');
-    if (localStorage.getItem('token')) {
-        fetch('https://geekhub-frontend-js-9.herokuapp.com/api/users/', {
-            method: 'GET',
-            headers: {
-                'x-access-token': localStorage.token,
-            }
-        }).then((response) => {
-            console.log(response);
-            return response.json();
-        }).catch((error) =>{
-            console.log('error')
-        });
-        console.log(localStorage.token)
+interface IState {
+    userData?: any,
+    isAuth?: boolean;
+}
+
+class LoginGetRequestContainer extends Component <{}, IState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            userData: [],
+            isAuth: false,
+        }
+    }
+
+    componentDidMount() {
+        localStorage.getItem('token');
+        if (localStorage.getItem('token')) {
+            axios({
+                method: 'get',
+                url: `${axios.defaults.baseURL}/api/users/`,
+                headers: {
+                    'x-access-token': localStorage.token,
+                }
+            })
+                .then(response => response)
+                .then(data => {
+                    if (data.status === 200) {
+                        this.setState({
+                            userData: data,
+                            isAuth: true,
+                        });
+                    }
+                })
+                .catch((error: string) => {
+                    console.error(error);
+                });
+        }
+    }
+
+    render() {
+        return (<> {this.state.isAuth ? (<Redirect to='/projects/'/>) : (<Redirect to='/login'/>)}</>)
     }
 }
-sendRequestForCurrent();
+
 
 interface IState {
     userData?: any,
     email?: string,
     password?: string,
-    replace?: boolean
-    isAuth?: boolean
+    isAuth?: boolean,
 }
 
 interface IProps {
@@ -40,15 +65,17 @@ interface IProps {
     password?: string,
 }
 
-export default class LoginContainer extends Component <IProps, IState> {
+export default class LoginPostRequestContainer extends Component <IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
             userData: [],
-            isAuth: false
+            isAuth: false,
+
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleChange(event: {
@@ -82,9 +109,9 @@ export default class LoginContainer extends Component <IProps, IState> {
                     localStorage.setItem('token', token);
                     this.setState({
                         userData: data,
+                        isAuth: true,
                     });
-                    window.location.href = `/api/projects/`
-                    //window.location.href = `/api/projects/`
+                    console.log(data)
                 }
             })
             .catch((error: string) => {
@@ -127,9 +154,8 @@ export default class LoginContainer extends Component <IProps, IState> {
                 <NavLink className='auth-navigation' to='reset_password'>
                     Forgot password?
                 </NavLink>
+                <LoginGetRequestContainer/>
             </div>
         )
     }
 }
-
-

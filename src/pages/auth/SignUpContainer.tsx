@@ -5,16 +5,16 @@ import {NameInput} from './NameInput'
 import {EmailInput} from './EmailInput'
 import {PasswordInput} from './PasswordInput'
 import {Button} from './Button'
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 axios.defaults.baseURL = `https://geekhub-frontend-js-9.herokuapp.com`;
 
-//axios.defaults.headers.common['x-access-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTE5YzIyM2E0MTk5YzAwMjI3NTI2OGEiLCJpYXQiOjE1Nzk2ODc4OTl9.M5q83O_nP6B8SbfNKOs3CaQTu4JaQcbr_MgDLSgqnTU';
 interface IState {
     userData?: any,
     email?: string,
     password?: string,
     name?: string,
+    isAuth?: boolean,
 }
 
 interface IProps {
@@ -28,6 +28,7 @@ export default class SignUpContainer extends Component <IProps, IState> {
         super(props);
         this.state = {
             userData: [],
+            isAuth: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,6 +63,7 @@ export default class SignUpContainer extends Component <IProps, IState> {
             .then((data: object) => {
                 this.setState({
                     userData: data,
+                    isAuth: true,
                 });
             })
             .catch((error: string) => {
@@ -76,33 +78,37 @@ export default class SignUpContainer extends Component <IProps, IState> {
 
     render() {
         return (
-            <div className="auth-container">
-                <h2 className="auth-container__title">
-                    Sign Up
-                </h2>
-                <NavLink className='auth-navigation' to='/login'>
-                    Log in
-                </NavLink>
-                <form key={this.state.userData._id}
-                      className='form'
-                      name="form"
-                      onSubmit={this.handleSubmit}>
-                    <NameInput
-                        value={this.state.name}
-                        handleChange={this.handleChange}/>
-                    <EmailInput
-                        name='email'
-                        value={this.state.email}
-                        handleChange={this.handleChange}/>
-                    <PasswordInput
-                        name='password'
-                        value={this.state.password}
-                        handleChange={this.handleChange}/>
-                    <Button type='submit'>
-                        Sign up
-                    </Button>
-                </form>
-            </div>
+            <>
+                <div className="auth-container">
+                    <h2 className="auth-container__title">
+                        Sign Up
+                    </h2>
+                    <NavLink className='auth-navigation' to='/login'>
+                        Log in
+                    </NavLink>
+                    <form key={this.state.userData._id}
+                          className='form'
+                          name="form"
+                          onSubmit={this.handleSubmit}>
+                        <NameInput
+                            value={this.state.name}
+                            handleChange={this.handleChange}/>
+                        <EmailInput
+                            name='email'
+                            value={this.state.email}
+                            handleChange={this.handleChange}/>
+                        <PasswordInput
+                            name='password'
+                            value={this.state.password}
+                            handleChange={this.handleChange}/>
+                        <Button type='submit'>
+                            Sign up
+                        </Button>
+                    </form>
+                </div>
+
+                {this.state.isAuth ? (<Redirect to='/login'/>) : (<></>)}
+            </>
         )
     }
 }
