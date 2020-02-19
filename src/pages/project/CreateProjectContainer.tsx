@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import axios from 'axios';
-
+import {Button} from "../auth/Button";
 
 interface IState {
     createProject?: object,
@@ -10,7 +10,6 @@ interface IState {
     deadline?: string,
     assigned?: string,
 }
-
 interface IProps {
     title?: string,
     company?: object,
@@ -18,17 +17,12 @@ interface IProps {
     deadline?: object,
     assigned?: object,
 }
-
+// 5e1ee5f58067c30022524e22
 export default class CreateProjectContainer extends Component <IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            createProject: [],
-            title: '',
-            company: '',
-            cost: '',
-            deadline: '',
-            assigned: ''
+            createProject: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,6 +41,7 @@ export default class CreateProjectContainer extends Component <IProps, IState> {
     }
 
     createNewProject() {
+        localStorage.getItem('token');
         axios({
             method: 'post',
             url: `${axios.defaults.baseURL}/api/projects/`,
@@ -58,7 +53,7 @@ export default class CreateProjectContainer extends Component <IProps, IState> {
                 assigned: this.state.assigned,
             },
             headers: {
-                'x-access-token': 'null',
+                'x-access-token': localStorage.token,
                 'Content-Type': 'application/json'
             }
         })
@@ -150,11 +145,9 @@ export default class CreateProjectContainer extends Component <IProps, IState> {
                             onChange={this.handleChange}/>
                     </label>
 
-                    <button
-                        className='button createProjectForm__button button--hovered'
-                        type='submit'>
+                    <Button type='submit'>
                         OK
-                    </button>
+                    </Button>
                 </form>
             </div>
         )

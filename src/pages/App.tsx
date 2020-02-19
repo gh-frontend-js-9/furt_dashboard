@@ -9,7 +9,6 @@ import ProjectsList from "./project/ProjectsList";
 const App: React.FC = () => {
     return (
         <>
-
             <Switch>
                 <Route path='/login' component={LoginContainer}/>
                 <Route exact path='/' component={SignUpContainer}/>

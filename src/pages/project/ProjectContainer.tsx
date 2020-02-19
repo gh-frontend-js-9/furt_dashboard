@@ -48,21 +48,11 @@ export default class ProjectContainer extends Component <IProps, IState> {
             .catch((error: string) => {
                 console.error(error);
             });
-        console.log(localStorage)
     }
 
     render() {
         const project = this.state.allProject.map((project: any) =>
-            <ProjectComponent
-                key={project._id}
-                title={project.title}
-                company={project.company}
-                cost={project.cost}
-                status={project.status}
-                deadline={project.deadline}
-                progress={project.progress}
-                assigned={project.assigned}
-            />);
+            <ProjectComponent {...project} key={project._id}/>);
         return (
             <>
                 {this.state.loading ? <Loading/> : project}

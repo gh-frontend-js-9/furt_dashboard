@@ -101,9 +101,7 @@ export default class ResetPassword extends Component <IProps, IState> {
                         name='confirmationPassword'
                         value={this.state.confirmationPassword}
                         handleChange={this.handleChange}/>
-                    <Button type='submit'>
-                        OK
-                    </Button>
+                    <Button> OK </Button>
                 </form>
             </div>
         )

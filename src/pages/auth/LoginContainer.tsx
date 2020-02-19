@@ -140,16 +140,12 @@ export default class LoginPostRequestContainer extends Component <IProps, IState
                       name="form"
                       onSubmit={this.handleSubmit}>
                     <EmailInput
-                        name='email'
                         value={this.state.email}
                         handleChange={this.handleChange}/>
                     <PasswordInput
-                        name='password'
                         value={this.state.password}
                         handleChange={this.handleChange}/>
-                    <Button type='submit'>
-                        Log in
-                    </Button>
+                    <Button> Log in </Button>
                 </form>
                 <NavLink className='auth-navigation' to='reset_password'>
                     Forgot password?

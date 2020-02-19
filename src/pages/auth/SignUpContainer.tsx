@@ -101,13 +101,11 @@ export default class SignUpContainer extends Component <IProps, IState> {
                             name='password'
                             value={this.state.password}
                             handleChange={this.handleChange}/>
-                        <Button type='submit'>
-                            Sign up
-                        </Button>
+                        <Button> Sign up </Button>
                     </form>
                 </div>
 
-                {this.state.isAuth ? (<Redirect to='/login'/>) : (<></>)}
+                {this.state.isAuth ? (<Redirect to='/login'/>) : (<>{'hi'}</>)}
             </>
         )
     }

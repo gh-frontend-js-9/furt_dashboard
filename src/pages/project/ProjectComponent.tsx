@@ -2,16 +2,6 @@ import React from "react"
 import {Line} from "rc-progress";
 
 const ProjectComponent = (props: any) => {
-    function getProgressColor() {
-        if (props.progresss === 0) {
-            return "#D3D3D3"
-        } else if (props.progresss === 100) {
-            return "#4caf50"
-        } else if (props.progresss < 0 && props.progresss < 100) {
-            return "#2196f3"
-        }
-    }
-
     return (
         <div className='project-container' key={props._id}>
             <div className='project-container__item'>
@@ -28,7 +18,7 @@ const ProjectComponent = (props: any) => {
             </div>
             <div className='project-container__item'>
                 {props.progress} %
-                <Line percent={props.progress} strokeColor={getProgressColor()}/>
+                <Line percent={props.progress} strokeColor={getProgressColor(props)}/>
             </div>
             <div className='project-container__item'>
                 {props.status}
@@ -51,4 +41,14 @@ const ProjectComponent = (props: any) => {
     );
 };
 
+function getProgressColor(props) {
+    if (props.progresss === 0) {
+        return "#D3D3D3"
+    } else if (props.progresss === 100) {
+        return "#4caf50"
+    }
+    if (props.progresss > 0 && props.progresss < 100) {
+        return "#2196f3"
+    }
+}
 export default ProjectComponent
